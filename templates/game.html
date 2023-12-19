@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Tic Tac Toe</title>
+<style>
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+  }
+  
+  .cell {
+    width: 100px;
+    height: 100px;
+    border: 2px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  .cell:hover {
+    background-color: #eee;
+  }
+</style>
+</head>
+<body>
+
+<div id="board" class="board">
+  <div class="cell" onclick="cellClicked(0, 0)"></div>
+  <div class="cell" onclick="cellClicked(0, 1)"></div>
+  <div class="cell" onclick="cellClicked(0, 2)"></div>
+  <div class="cell" onclick="cellClicked(1, 0)"></div>
+  <div class="cell" onclick="cellClicked(1, 1)"></div>
+  <div class="cell" onclick="cellClicked(1, 2)"></div>
+  <div class="cell" onclick="cellClicked(2, 0)"></div>
+  <div class="cell" onclick="cellClicked(2, 1)"></div>
+  <div class="cell" onclick="cellClicked(2, 2)"></div>
+</div>
+<br>
+<a href="/">home</a>
+
+
+<script>
+  let board = [
+    ['', '', ''],
+    ['', '', ''],
+    ['', '', '']
+  ];
+  
+  let currentPlayer = 'X';
+ 
+  const checkWinner = () => {
+    for (let i = 0; i < 3; i++) {
+      if (
+        (board[i][0] === currentPlayer && board[i][1] === currentPlayer && board[i][2] === currentPlayer) ||
+        (board[0][i] === currentPlayer && board[1][i] === currentPlayer && board[2][i] === currentPlayer)
+      ) {
+        return true;
+      }
+    }
+  
+    if (
+      (board[0][0] === currentPlayer && board[1][1] === currentPlayer && board[2][2] === currentPlayer) ||
+      (board[0][2] === currentPlayer && board[1][1] === currentPlayer && board[2][0] === currentPlayer)
+    ) {
+      return true;
+    }
+  
+    return false;
+  }
+  
+  const cellClicked =(row, col)=> {
+    if (board[row][col] === '') {
+      board[row][col] = currentPlayer;
+  
+      if (checkWinner()) {
+        alert('Player ' + currentPlayer + ' wins!');
+        resetGame();
+      } else {
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        updateBoard();
+      }
+    }
+  }
+
+
+  const updateBoard = () => {
+    const cells = document.querySelectorAll('.cell');
+
+    for (let i = 0; i < cells.length; i++) {
+        const row = Math.floor(i / 3);
+        const col = i % 3;
+        cells[i].textContent = board[row][col];
+    }
+}
+
+  
+  const resetGame =()=> {
+    board = [
+      ['', '', ''],
+      ['', '', ''],
+      ['', '', '']
+    ];
+    currentPlayer = 'X';
+    updateBoard();
+  }
+</script>
+</body>
+</html>

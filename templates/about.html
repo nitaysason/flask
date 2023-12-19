@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: hsl(133, 8%, 65%);
+            color: #111401;
+            text-align: center;
+            background-image: url(fhonebook.jpg) ;
+
+        }
+
+        button {
+            background-color: rgb(36, 235, 235);
+            margin: 20px;
+            height: 30px;
+        }
+
+        input {
+            background-color: rgb(136, 155, 190);
+            width: 200px;
+            height: 20px;
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <button onclick="contactperson()">AddContactPerson</button>
+    <br>
+    Name <br> <input type="text" id="Name">
+    <br>
+    LastName <br> <input type="text" id="LastName">
+    <br>
+    PhoneNumber <br> <input type="tel" id="PhoneNumber">
+    <br>
+    Adress <br> <input type="text" id="Adress">
+    <br>
+    Email <br><input type="email" id="Email">
+    <div id="display"></div>
+
+
+    <button onclick="removeLastPerson()">removeLastPerson</button>
+    <button onclick="RemoveAllPerson()">RemoveAllPerson</button>
+    <br>
+<a href="/">home</a>
+    <script>
+        let Newcontact = []
+
+        const  contactperson = ()=> {
+            Newcontact.push({ "Name": Name.value, "LastName": LastName.value, "PhoneNumber": PhoneNumber.value, "Adress": Adress.value, "Email": Email.value })
+            console.log(Newcontact);
+            // display.innerHTML = JSON.stringify(Newcontact)
+            display.innerHTML = Newcontact.map(person => `<div>
+        Name : ${person.Name},
+        LastName : ${person.LastName},
+        PhoneNumber : ${person.PhoneNumber},
+        Adress : ${person.Adress},
+        Email : ${person.Email}
+        <img src = "https://thispersondoesnotexist.com/" width = 50px>
+        </div>`).join("")
+
+
+        }
+        const  removeLastPerson = ()=> {
+
+            Newcontact.pop();
+            console.log(Newcontact);
+            display.innerHTML = Newcontact.length
+
+        }
+
+        const RemoveAllPerson = ()=> {
+            Newcontact.splice(Newcontact);
+            console.log("no person");
+            display.innerHTML = ("No person");
+
+
+        }
+
+
+
+    </script>
+</body>
+
+</html>
