@@ -54,7 +54,7 @@
 
 
 <script>
-  let board = [
+let board = [
     ['', '', ''],
     ['', '', ''],
     ['', '', '']
@@ -82,7 +82,8 @@
     return false;
   }
   
-  const cellClicked =(row, col)=> {
+
+const cellClicked = (row, col) => {
     if (board[row][col] === '') {
       board[row][col] = currentPlayer;
   
@@ -93,10 +94,23 @@
         currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
         updateBoard();
       }
+    } else {
+      if (is_board_full()) {
+        alert('Draw!');
+        resetGame();
+      }
     }
-  }
-
-
+  };
+  
+  const is_board_full = () => {
+    for (const row of board) {
+      if (row.includes(' ')) {
+        return false;
+      }
+    }
+    return true;
+  };
+  
   const updateBoard = () => {
     const cells = document.querySelectorAll('.cell');
 
@@ -105,8 +119,9 @@
         const col = i % 3;
         cells[i].textContent = board[row][col];
     }
-}
-
+    
+ 
+  }
   
   const resetGame =()=> {
     board = [
@@ -117,6 +132,9 @@
     currentPlayer = 'X';
     updateBoard();
   }
+
+
+
 </script>
 </body>
 </html>
